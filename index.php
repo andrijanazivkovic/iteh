@@ -1,3 +1,33 @@
+<?php
+require "model/user.php";
+
+session_start();
+if(isset($_POST['username']) && isset($_POST['password'])){
+    $uname = $_POST['username'];
+    $upass = $_POST['password'];
+
+    $conn = new mysqli();
+
+    $korisnik = new User (null, $uname, $upass);
+    //$odg = $korisnik -> logInUser($uname, $upass, $conn);
+    $odg = User ::logInUser($korisnik, $conn);
+
+    if($odg){
+        echo `<script> console.log("Uspesno ste se prijavili"); </script>`;
+        $_SESSION['user_id'] = $korisnik -> id;
+        header('Location: home.php');
+        exit();
+    }else{
+        echo `<script> console.log("Uspesno ste se prijavili"); </script>`;
+    }
+}
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
